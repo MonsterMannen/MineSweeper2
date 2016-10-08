@@ -3,17 +3,24 @@ public class Game {
 	// variables
 	private int[][] field;				// the game field with bombs and numbers
 	private boolean[][] visibleField;	// what fields are visible after clicking (all false from start)
-	private int size;					// size of gamefield
+	private int width;					// nr of cols
+	private int height;					// nr of rows
 	private int bombs;					// number of bombs
 	private boolean gameOver = false;	// sets to true if a bomb is clicked
 
-	// constructor
-	public Game(int size, int bombs) {
-		this.field = new int[size][size];
-		visibleField = new boolean[size][size];
-		this.size = size;
+	// constructor for rectangle field
+	public Game(int width, int height, int bombs){
+		field = new int[height][width];
+		visibleField = new boolean[height][width];
 		this.bombs = bombs;
+		this.width = width;
+		this.height = height;
 		initField();
+	}
+
+	// constructor for square field
+	public Game(int size, int bombs) {
+		this(size, size, bombs);
 	}
 
 	// sets up the game field
@@ -26,8 +33,8 @@ public class Game {
 	private void setBombs(){
 		int bombsToPlace = bombs;
 		while(bombsToPlace > 0){
-			int r1 = (int)Math.floor(Math.random() * size);	// int 0 to size-1
-			int r2 = (int)Math.floor(Math.random() * size);	// int 0 to size-1
+			int r1 = (int)Math.floor(Math.random() * height);	// int 0 to rows-1
+			int r2 = (int)Math.floor(Math.random() * width);	// int 0 to cols-1
 			if(field[r1][r2] != -1){
 				field[r1][r2] = -1;
 				bombsToPlace--;
@@ -37,8 +44,8 @@ public class Game {
 
 	// sets how many bombs are around each field
 	private void setNumbers(){
-		for(int row = 0; row < size; row++){
-			for(int col = 0; col < size; col++){
+		for(int row = 0; row < height; row++){
+			for(int col = 0; col < width; col++){
 
 				// skip bomb fields
 				if(field[row][col] == -1){
@@ -64,7 +71,7 @@ public class Game {
 
 	// check if inside game field
 	private boolean isInside(int row, int col){
-		return (row >= 0 && row < size && col >= 0 && col < size);
+		return (row >= 0 && row < height && col >= 0 && col < width);
 	}
 
 	// ****************************** public methods ******************************
@@ -74,17 +81,18 @@ public class Game {
 		return gameOver;
 	}
 
+	// return true if all fields except the bombs are visible
 	public boolean isGameWon(){
 		int nrVisible = 0;
-		for(int row = 0; row < size; row++){
-			for(int col = 0; col < size; col++){
+		for(int row = 0; row < height; row++){
+			for(int col = 0; col < width; col++){
 				if(visibleField[row][col]){
 					nrVisible++;
 				}
 			}
 		}
 		// all fields that are not bombs are visible and the game is not over
-		return (nrVisible + bombs == size*size && !gameOver);
+		return (nrVisible + bombs == width * height && !gameOver);
 	}
 
 	// run when user clicks a field
@@ -95,6 +103,7 @@ public class Game {
 		// clicked on a bomb
 		if(field[row][col] == -1){
 			gameOver = true;
+			// TODO reveal rest of bombs too
 			return;
 		}
 
@@ -122,8 +131,8 @@ public class Game {
 
 	// debug method
 	public void printField(){
-		for(int row = 0; row < size; row++){
-			for(int col = 0; col < size; col++){
+		for(int row = 0; row < height; row++){
+			for(int col = 0; col < width; col++){
 				if(field[row][col] >= 0){
 					System.out.print(field[row][col] + " ");
 				}else{
@@ -136,8 +145,8 @@ public class Game {
 
 	// debug method
 	public void printVisible(){
-		for(int row = 0; row < size; row++){
-			for(int col = 0; col < size; col++){
+		for(int row = 0; row < height; row++){
+			for(int col = 0; col < width; col++){
 				if(visibleField[row][col] == true){
 					System.out.print(field[row][col] + " ");
 				}else{
@@ -150,9 +159,8 @@ public class Game {
 
 	// test
 	public static void main(String args[]){
-		int size = 5;
-		int bombs = 3;
-		Game minesweeper = new Game(size, bombs);
+		int bombs = 2;
+		Game minesweeper = new Game(5, bombs);
 		minesweeper.printField();
 		minesweeper.clickField(0, 0);
 		System.out.println("===========");
