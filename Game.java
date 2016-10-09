@@ -95,6 +95,16 @@ public class Game {
 		return (nrVisible + bombs == width * height && !gameOver);
 	}
 
+	// returns the game field
+	public int[][] getField(){
+		return field;
+	}
+
+	// returns the visible fields
+	public boolean[][] getVisibleField(){
+		return visibleField;	// should probably return a copy
+	}
+
 	// run when user clicks a field
 	public void clickField(int row, int col){
 		// set the clicked field to visible
