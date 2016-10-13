@@ -105,6 +105,11 @@ public class Game {
 		return visibleField;	// should probably return a copy
 	}
 
+	// return value on a specific spot
+	public int getField(int row, int col){
+		return field[row][col];
+	}
+
 	// run when user clicks a field
 	public void clickField(int row, int col){
 		// set the clicked field to visible
@@ -168,6 +173,7 @@ public class Game {
 	}
 
 	// test
+	/*
 	public static void main(String args[]){
 		int bombs = 2;
 		Game minesweeper = new Game(5, bombs);
@@ -176,4 +182,5 @@ public class Game {
 		System.out.println("===========");
 		minesweeper.printVisible();
 	}
+	*/
 }
