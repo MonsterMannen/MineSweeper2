@@ -110,6 +110,19 @@ public class Game {
 		return field[row][col];
 	}
 
+	// return number of bombs
+	public int getBombs(){
+		return bombs;
+	}
+
+	public int getWidth(){
+		return width;
+	}
+
+	public int getHeight(){
+		return height;
+	}
+
 	// run when user clicks a field
 	public void clickField(int row, int col){
 		// set the clicked field to visible
