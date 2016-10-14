@@ -58,29 +58,29 @@ public class Controller {
             col = i % width;
             if(visibleField[row][col]){
                 int value = game.getField(row, col);
-                switch(value){
-                    case -1:
-                        buttons[i].setText("X");
-                        buttons[i].setBackground(new Color(140, 0, 0));
-                        break;
-                    case 0:
-                        buttons[i].setText(" ");
-                        break;
-                    case 1:
-                        buttons[i].setText("<html><font color=blue>" + value + "</font></html>");
-                        break;
-                    case 2:
-                        buttons[i].setText("<html><font color=green>" + value + "</font></html>");
-                        break;
-                    case 3:
-                        buttons[i].setText("<html><font color=red>" + value + "</font></html>");
-                        break;
-                    case 4:
-                        buttons[i].setText("<html><font color=black>" + value + "</font></html>");
-                        break;
-                    default:
-                        buttons[i].setText(value+"");
-                        break;
+                if(value == -1){
+                    buttons[i].setText("X");
+                    buttons[i].setBackground(new Color(200, 50, 50));
+                }else if(value == 0){
+                    buttons[i].setText(" ");
+                }else if(value == 1){
+                    //buttons[i].setText("<html><font color=blue>" + value + "</font></html>");
+                    buttons[i].setForeground(Color.BLUE);
+                    buttons[i].setText(value+"");
+                }else if(value == 2){
+                    //buttons[i].setText("<html><font color=green>" + value + "</font></html>");
+                    buttons[i].setForeground(Color.GREEN);
+                    buttons[i].setText(value+"");
+                }else if(value == 3){
+                    //buttons[i].setText("<html><font color=red>" + value + "</font></html>");
+                    buttons[i].setForeground(Color.RED);
+                    buttons[i].setText(value+"");
+                }else if(value == 4){
+                    //buttons[i].setText("<html><font color=black>" + value + "</font></html>");
+                    buttons[i].setForeground(Color.BLACK);
+                    buttons[i].setText(value+"");
+                }else{
+                    buttons[i].setText(value+"");
                 }
                 buttons[i].setEnabled(false);
             }
@@ -100,9 +100,9 @@ public class Controller {
     }
 
     public static void main(String[] args) {
-        int w = 7;
-        int h = 7;
-        int bombs = 7;
+        int w = 8;
+        int h = 8;
+        int bombs = 8;
         Gui gui = new Gui(w, h);
         Game game = new Game(w, h, bombs);
         Controller c = new Controller(game, gui);

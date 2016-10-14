@@ -56,6 +56,7 @@ public class Gui {
             buttons[i].setText(" ");
             buttons[i].setEnabled(true);
             buttons[i].setBackground(new JButton().getBackground());
+            buttons[i].setFocusPainted(false);
         }
     }
 
